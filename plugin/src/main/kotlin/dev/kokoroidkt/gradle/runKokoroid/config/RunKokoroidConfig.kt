@@ -38,6 +38,17 @@ object RunKokoroidConfig {
      * Proxy Protocol
      */
     var proxyProtocol: String = System.getProperty("kokoroid.proxy.protocol") ?: "http"
+
+    /**
+     *
+     */
+    var useExists: Boolean = false
+
+    var isValidationOnly: Boolean = false
+
+    var enableKokoroidDebug: Boolean = false
+
+    var testExtensionType: String? = null
 }
 
 fun runKokoroid(block: RunKokoroidConfig.() -> Unit) {

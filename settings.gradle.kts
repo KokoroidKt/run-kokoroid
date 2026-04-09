@@ -1,4 +1,10 @@
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+pluginManagement {
+    includeBuild("plugin")
 }
-rootProject.name = "run-kokoroid"
+
+plugins {
+}
+
+rootProject.name = "run-kokoroid.parent"
+
+include(":tester")
