@@ -58,8 +58,8 @@ gradlePlugin {
 }
 
 signing {
-    val signingKey: String? = System.getenv("SIGNING_KEY")
-    val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
+    val signingKey: String? = System.getenv("GPG_PRIVATE_KEY")
+    val signingPassword: String? = System.getenv("GPG_PASSPHRASE")
     if (signingKey != null && signingPassword != null) {
         println("Using signing key from environment variables")
         useInMemoryPgpKeys(signingKey, signingPassword)
