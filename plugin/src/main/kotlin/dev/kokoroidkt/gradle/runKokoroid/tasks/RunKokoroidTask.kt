@@ -83,6 +83,10 @@ abstract class RunKokoroidTask : JavaExec() {
             args("--debug")
         }
 
+        if (RunKokoroidConfig.isValidationOnly) {
+            args("--validation-only")
+        }
+
         logger.lifecycle("Starting Kokoroid...")
         logger.lifecycle("Start Command: ${this.commandLine}")
         super.exec()

@@ -1,11 +1,14 @@
 plugins {
     kotlin("jvm") version "2.3.10"
     kotlin("plugin.serialization") version "2.3.10"
+    id("com.gradle.plugin-publish") version "1.2.1"
     `java-gradle-plugin`
+    signing
+    `maven-publish`
 }
 
-group = "dev.kokoroid"
-version = "1.0-SNAPSHOT"
+group = "dev.kokoroidkt"
+version = "0.3.3"
 
 repositories {
     mavenCentral()
@@ -39,10 +42,29 @@ tasks.test {
 }
 
 gradlePlugin {
+    website = "https://kokoroidkt.dev/"
+    vcsUrl = "https://github.com/kokoroidKt/run-kokoroid.git"
     plugins {
         create("runKokoroid") {
             id = "dev.kokoroidkt.gradle.runKokoroid"
+            displayName = "Run Kokoroid"
+            description = "Run Kokoroid With Gradle, and get the IDEA Debug Support"
             implementationClass = "dev.kokoroidkt.gradle.runKokoroid.RunKokoroid"
+            tags = listOf("Kokoroid", )
         }
     }
+}
+
+signing {
+    val signingKey: String? = System.getenv("SIGNING_KEY")
+    val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
+    if (signingKey != null && signingPassword != null) {
+        println("Using signing key from environment variables")
+        useInMemoryPgpKeys(signingKey, signingPassword)
+    }else {
+        println("Using signing key from local file")
+        useGpgCmd()
+    }
+
+    sign(publishing.publications)
 }

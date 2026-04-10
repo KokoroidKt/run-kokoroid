@@ -25,4 +25,6 @@ kotlin {
 runKokoroid {
     githubToken = System.getenv("GITHUB_TOKEN")
     testExtensionType = "driver"
+    isValidationOnly = true
+    enableKokoroidDebug = true
 }

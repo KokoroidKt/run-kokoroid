@@ -12,12 +12,6 @@ object RunKokoroidConfig {
     var githubToken: String? = null
 
     /**
-     *  Kokoroid Version
-     *  RunKokoroid will download the latest version if you don't set this.
-     */
-    val version: String? = null
-
-    /**
      * Kokoroid Temp Path
      * The Jar file & temp Kokoroid configs will put on this folder
      * REMENBER to add it into .gitgnore
@@ -33,16 +27,6 @@ object RunKokoroidConfig {
      * Proxy Port
      */
     var proxyPort: Int? = System.getProperty("kokoroid.proxy.port")?.toIntOrNull()
-
-    /**
-     * Proxy Protocol
-     */
-    var proxyProtocol: String = System.getProperty("kokoroid.proxy.protocol") ?: "http"
-
-    /**
-     *
-     */
-    var useExists: Boolean = false
 
     var isValidationOnly: Boolean = false
 
