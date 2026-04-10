@@ -8,7 +8,9 @@ plugins {
 }
 
 group = "dev.kokoroidkt"
-version = "0.3.3"
+version = findProperty("version")?.toString()
+    ?: System.getenv("VERSION")
+            ?: "undefined"
 
 repositories {
     mavenCentral()

@@ -69,7 +69,7 @@ fun getLatestKokoroidRelease(client: HttpClient = getClient()): DownloadInfo {
     return DownloadInfo(
         asset.browserDownloadUrl,
         releaseResponse.tagName,
-        asset.digest,
+        asset.digest?.replace("SHA-256:", "")
     )
 }
 
@@ -154,5 +154,5 @@ fun downloadKokoroid(
 private fun calculateHash(path: Path): String {
     val md = MessageDigest.getInstance("SHA-256")
     val digest = md.digest(path.readBytes())
-    return "sha256:" + digest.joinToString("") { "%02x".format(it) }
+    return digest.joinToString("") { "%02x".format(it) }
 }
