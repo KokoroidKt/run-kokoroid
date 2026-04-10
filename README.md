@@ -1,9 +1,28 @@
 # Run Kokoroid
 
-Run kokoroid是一个Gradle插件，用于在Gradle调试你的Kokoroid拓展
+[English](README.md)/[简体中文](./README_zhCN.md)
 
-灵感来源：[jpenilla/run-task](https://github.com/jpenilla/run-task)
+Run-Kokoroid is a Gradle plugin for debugging your Kokoroid extensions within Gradle.
 
-## 使用
+Inspired by: https://github.com/jpenilla/run-task
 
-燃尽了，下次放假写
+## Usage
+
+1. Apply the run-kokoroid plugin.
+2. Configure the run-kokoroid extension.
+```kotlin
+// You basically only need to configure these items.
+runKokoroid {
+   testExtensionType = "driver" // Required: The type of test extension. It can be "driver", "plugin", or "adapter".
+
+   githubToken = System.getenv("GITHUB_TOKEN") // Your GitHub Token. This is useful if you are limited by API rate limits.
+   isValidationOnly = true // Whether to only perform the validation process. This corresponds to Kokoroid's `--validationOnly` option.
+   enableKokoroidDebug = true // Whether to enable Kokoroid debug mode. This corresponds to Kokoroid's `--debug` option.
+}
+```
+
+3. Use the `runKokoroid` task to start Kokoroid.
+
+## License
+
+run-kokoroid is licensed under the LGPL-2.1 License. For more information, please visit [Wikipedia - LGPL V2.1](https://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License#Version_2.1).
