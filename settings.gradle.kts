@@ -5,6 +5,6 @@ pluginManagement {
 plugins {
 }
 
-rootProject.name = "run-kokoroid.parent"
-
+rootProject.name = "run-kokoroid"
+// include(":plugin")
 include(":tester")

@@ -49,6 +49,8 @@ object RunKokoroidConfig {
     var enableKokoroidDebug: Boolean = false
 
     var testExtensionType: String? = null
+
+    var libDir: String = "libs"
 }
 
 fun runKokoroid(block: RunKokoroidConfig.() -> Unit) {

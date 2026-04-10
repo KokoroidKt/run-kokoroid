@@ -13,6 +13,9 @@ repositories {
 }
 
 dependencies {
+    // okay.....
+    implementation("dev.kokoroidkt:kokoroidkt-driver-api:0.3.3")
+    implementation("dev.kokoroidkt:kokoroidkt-core-api:0.3.3")
 }
 
 kotlin {

@@ -36,23 +36,22 @@ abstract class RunKokoroidTask : JavaExec() {
         if (RunKokoroidConfig.testExtensionType == null) {
             throw RuntimeException("testExtensionType is null, please set it: \"driver\" | \"adapter\" | \"plugin\"")
         }
-        val path =
-            project.layout.buildDirectory
-                .dir("lib")
-                .get()
-                .asFile
-                .toPath()
-                .toString()
+
         when (RunKokoroidConfig.testExtensionType) {
             "driver" -> {
-                args("--with-driver-path=$path")
+                args("--with-driver-path", project.layout.buildDirectory
+                    .dir(RunKokoroidConfig.libDir)
+                    .get()
+                    .asFile
+                    .toPath()
+                    .toString())
             }
 
             "adapter" -> {
                 args(
                     "--with-adapter-path",
                     project.layout.buildDirectory
-                        .dir("lib")
+                        .dir(RunKokoroidConfig.libDir)
                         .get()
                         .asFile
                         .toPath()
@@ -64,7 +63,7 @@ abstract class RunKokoroidTask : JavaExec() {
                 args(
                     "--with-plugin-path",
                     project.layout.buildDirectory
-                        .dir("lib")
+                        .dir(RunKokoroidConfig.libDir)
                         .get()
                         .asFile
                         .toPath()
@@ -85,6 +84,7 @@ abstract class RunKokoroidTask : JavaExec() {
         }
 
         logger.lifecycle("Starting Kokoroid...")
+        logger.lifecycle("Start Command: ${this.commandLine}")
         super.exec()
     }
 }

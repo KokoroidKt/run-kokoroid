@@ -1,0 +1,11 @@
+{
+  "name": "ExampleDriver",
+  "version": "1.0.0",
+  "mainClass": "com.example.kokoroidExample.ExampleDriver",
+  "authors": [
+    "foo"
+  ],
+  "description": "meow",
+  "website": "https://example.com",
+  "priority": 0
+}
