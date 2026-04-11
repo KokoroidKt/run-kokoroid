@@ -2,13 +2,18 @@
 
 [English](README.md)/[简体中文](./README_zhCN.md)
 
-Run kokoroid是一个Gradle插件，用于在Gradle调试你的Kokoroid拓展
+Run kokoroid是一个Gradle插件，用于在Gradle调试你的[Kokoroid](https://kokoroidkt.dev)拓展
 
 灵感来源：[jpenilla/run-task](https://github.com/jpenilla/run-task)
 
 ## 使用
 
 1. 引入run-Kokoroid插件
+```kotlin
+plugins {
+id("dev.kokoroidkt.gradle.runKokoroid")
+}
+```
 2. 配置run-Kokoroid配置
 ```kotlin
 // 你基本只需要配置这些东西
