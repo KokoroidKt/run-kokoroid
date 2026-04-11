@@ -2,13 +2,18 @@
 
 [English](README.md)/[简体中文](./README_zhCN.md)
 
-Run-Kokoroid is a Gradle plugin for debugging your Kokoroid extensions within Gradle.
+Run-Kokoroid is a Gradle plugin for debugging your [Kokoroid](https://kokoroidkt.dev) extensions within Gradle.
 
 Inspired by: https://github.com/jpenilla/run-task
 
 ## Usage
 
 1. Apply the run-kokoroid plugin.
+```kotlin
+plugins {
+    id("dev.kokoroidkt.gradle.runKokoroid")
+} 
+```
 2. Configure the run-kokoroid extension.
 ```kotlin
 // You basically only need to configure these items.
