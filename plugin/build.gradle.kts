@@ -43,6 +43,12 @@ tasks.test {
     }
 }
 
+publishing {
+    repositories {
+        mavenLocal()
+    }
+}
+
 gradlePlugin {
     website = "https://kokoroidkt.dev/"
     vcsUrl = "https://github.com/kokoroidKt/run-kokoroid.git"

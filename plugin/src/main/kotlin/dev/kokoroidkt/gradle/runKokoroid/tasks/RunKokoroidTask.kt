@@ -1,5 +1,6 @@
 package dev.kokoroidkt.gradle.runKokoroid.tasks
 
+import dev.kokoroidkt.gradle.runKokoroid.config.ExtensionTypes
 import dev.kokoroidkt.gradle.runKokoroid.config.RunKokoroidConfig
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.JavaExec
@@ -37,45 +38,81 @@ abstract class RunKokoroidTask : JavaExec() {
             throw RuntimeException("testExtensionType is null, please set it: \"driver\" | \"adapter\" | \"plugin\"")
         }
 
-        when (RunKokoroidConfig.testExtensionType) {
-            "driver" -> {
-                args("--with-driver-path", project.layout.buildDirectory
-                    .dir(RunKokoroidConfig.libDir)
-                    .get()
-                    .asFile
-                    .toPath()
-                    .toString())
-            }
+        if (RunKokoroidConfig.extensionFilename == null) {
+            when (RunKokoroidConfig.testExtensionType) {
+                ExtensionTypes.DRIVER -> {
+                    args(
+                        "--with-driver-path", project.layout.buildDirectory
+                            .dir(RunKokoroidConfig.libDir)
+                            .get()
+                            .asFile
+                            .toPath()
+                            .toString()
+                    )
+                }
 
-            "adapter" -> {
-                args(
-                    "--with-adapter-path",
-                    project.layout.buildDirectory
-                        .dir(RunKokoroidConfig.libDir)
-                        .get()
-                        .asFile
-                        .toPath()
-                        .toString(),
-                )
-            }
+                ExtensionTypes.ADAPTER -> {
+                    args(
+                        "--with-adapter-path",
+                        project.layout.buildDirectory
+                            .dir(RunKokoroidConfig.libDir)
+                            .get()
+                            .asFile
+                            .toPath()
+                            .toString(),
+                    )
+                }
 
-            "plugin" -> {
-                args(
-                    "--with-plugin-path",
-                    project.layout.buildDirectory
-                        .dir(RunKokoroidConfig.libDir)
-                        .get()
-                        .asFile
-                        .toPath()
-                        .toString(),
-                )
-            }
+                ExtensionTypes.PLUGIN -> {
+                    args(
+                        "--with-plugin-path",
+                        project.layout.buildDirectory
+                            .dir(RunKokoroidConfig.libDir)
+                            .get()
+                            .asFile
+                            .toPath()
+                            .toString(),
+                    )
+                }
 
-            else -> {
-                throw RuntimeException(
-                    "Invalid testExtensionType: ${RunKokoroidConfig.testExtensionType}, " +
-                        "please set it as: \"driver\" | \"adapter\" | \"plugin\"",
-                )
+                else -> {
+                    throw RuntimeException(
+                        "Invalid testExtensionType: ${RunKokoroidConfig.testExtensionType}, " +
+                                "please set it as: \"driver\" | \"adapter\" | \"plugin\"",
+                    )
+                }
+            }
+        } else {
+            when (RunKokoroidConfig.testExtensionType) {
+                ExtensionTypes.DRIVER -> {
+                    args(
+                        "--with-driver", project.layout.buildDirectory.dir(RunKokoroidConfig.libDir)
+                            .get().asFile.toPath().resolve(RunKokoroidConfig.extensionFilename)
+                    )
+                }
+
+                ExtensionTypes.ADAPTER -> {
+                    args(
+                        "--with-adapter",
+                        project.layout.buildDirectory.dir(RunKokoroidConfig.libDir)
+                            .get().asFile.toPath().resolve(RunKokoroidConfig.extensionFilename)
+                    )
+                }
+
+                ExtensionTypes.PLUGIN -> {
+                    args(
+                        "--with-plugin",
+                        project.layout.buildDirectory.dir(RunKokoroidConfig.libDir)
+                            .get().asFile.toPath().resolve(RunKokoroidConfig.extensionFilename)
+                    )
+                }
+
+                else -> {
+                    throw RuntimeException(
+                        "Invalid testExtensionType: ${RunKokoroidConfig.testExtensionType}, " +
+                                "please set it as: \"driver\" | \"adapter\" | \"plugin\"",
+                    )
+                }
             }
         }
 

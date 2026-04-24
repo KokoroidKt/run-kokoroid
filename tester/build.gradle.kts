@@ -1,4 +1,5 @@
 import dev.kokoroidkt.gradle.runKokoroid.config.runKokoroid
+import dev.kokoroidkt.gradle.runKokoroid.config.ExtensionTypes
 
 plugins {
     kotlin("jvm") version "2.3.10"
@@ -14,8 +15,8 @@ repositories {
 
 dependencies {
     // okay.....
-    implementation("dev.kokoroidkt:kokoroidkt-driver-api:0.3.3")
-    implementation("dev.kokoroidkt:kokoroidkt-core-api:0.3.3")
+    implementation("dev.kokoroidkt:kokoroidkt-driver-api:0.4.0")
+    implementation("dev.kokoroidkt:kokoroidkt-core-api:0.4.0")
 }
 
 kotlin {
@@ -24,7 +25,9 @@ kotlin {
 
 runKokoroid {
     githubToken = System.getenv("GITHUB_TOKEN")
-    testExtensionType = "driver"
-    isValidationOnly = true
+    testExtensionType = ExtensionTypes.DRIVER
+    isValidationOnly = false
     enableKokoroidDebug = true
+    skipDownload = true
+    extensionFilename = "tester-1.0-SNAPSHOT.jar"
 }
