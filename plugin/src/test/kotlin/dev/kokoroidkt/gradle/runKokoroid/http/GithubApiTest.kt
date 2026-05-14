@@ -144,10 +144,9 @@ class GithubApiTest {
                     )
                 }
             val downloadInfo = DownloadInfo("https://example.com/kokoroid.jar", "v1.0.0")
-
-            downloadKokoroid(downloadInfo, tempDir, client)
-
             val downloadedFile = tempDir.resolve("kokoroid-core.jar")
+
+            downloadKokoroid(downloadInfo, downloadedFile, client)
             assertTrue(downloadedFile.exists(), "Downloaded file should exist")
             val downloadedContent = downloadedFile.readBytes()
             assertEquals(jarContent.size, downloadedContent.size, "File size should match")
@@ -174,15 +173,15 @@ class GithubApiTest {
                     )
                 }
             val downloadInfo = DownloadInfo("https://example.com/kokoroid.jar", "v1.0.0", hash)
+            val downloadedFile = tempDir.resolve("kokoroid-core.jar")
 
             // First download (real download)
-            downloadKokoroid(downloadInfo, tempDir, client)
+            downloadKokoroid(downloadInfo, downloadedFile, client)
 
-            val downloadedFile = tempDir.resolve("kokoroid-core.jar")
             assertTrue(downloadedFile.exists())
 
             // Second download (should skip)
-            downloadKokoroid(downloadInfo, tempDir, client)
+            downloadKokoroid(downloadInfo, downloadedFile, client)
 
             assertTrue(downloadedFile.exists())
             assertContentEquals(jarContent, downloadedFile.readBytes())
@@ -207,12 +206,11 @@ class GithubApiTest {
                     )
                 }
             val downloadInfo = DownloadInfo("https://example.com/kokoroid.jar", "v1.0.0", wrongHash)
+            val downloadedFile = tempDir.resolve("kokoroid-core.jar")
 
             assertFailsWith<RuntimeException> {
-                downloadKokoroid(downloadInfo, tempDir, client)
+                downloadKokoroid(downloadInfo, downloadedFile, client)
             }
-
-            val downloadedFile = tempDir.resolve("kokoroid-core.jar")
             assertFalse(downloadedFile.exists(), "File should be deleted on hash mismatch")
         } finally {
             tempDir.toFile().deleteRecursively()
@@ -237,7 +235,7 @@ class GithubApiTest {
                 }
             val downloadInfo = DownloadInfo("https://example.com/kokoroid.jar", "v1.0.0", hash)
 
-            downloadKokoroid(downloadInfo, tempDir, client)
+            downloadKokoroid(downloadInfo, file, client)
 
             assertTrue(file.exists())
             assertContentEquals(jarContent, file.readBytes())
