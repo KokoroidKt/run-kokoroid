@@ -75,16 +75,9 @@ fun getLatestKokoroidRelease(client: HttpClient = getClient()): DownloadInfo {
 
 fun downloadKokoroid(
     downloadInfo: DownloadInfo,
-    savePath: Path = RunKokoroidConfig.kokoroidTempPath,
+    file: Path,
     client: HttpClient = getClient(),
 ) {
-    savePath.createDirectories()
-
-    val actualSavePath = savePath.toAbsolutePath().normalize()
-    actualSavePath.createDirectories()
-
-    val file = actualSavePath.resolve("kokoroid-core.jar")
-    file.parent?.createDirectories()
 
     if (downloadInfo.hash != null && file.exists()) {
         val currentHash = calculateHash(file)
@@ -115,7 +108,7 @@ fun downloadKokoroid(
     val contentLength = response.headers().firstValueAsLong("Content-Length").orElse(-1L)
 
     println("Starting download. Total size: ${if (contentLength != -1L) contentLength else "unknown"} bytes")
-    println("Save path: ${actualSavePath.toAbsolutePath().normalize()}")
+    // println("Save path: ${actualSavePath.toAbsolutePath().normalize()}")
     println("Output file: ${file.toAbsolutePath().normalize()}")
 
     response.body().use { inputStream ->

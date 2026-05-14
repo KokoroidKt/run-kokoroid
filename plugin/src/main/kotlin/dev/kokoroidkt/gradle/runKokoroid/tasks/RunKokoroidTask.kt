@@ -28,6 +28,7 @@ abstract class RunKokoroidTask : JavaExec() {
 
         classpath = project.files(jarFile)
 
+        /*
         if (RunKokoroidConfig.enableKokoroidDebug) {
             jvmArgs(
                 "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005",
@@ -37,6 +38,7 @@ abstract class RunKokoroidTask : JavaExec() {
         if (RunKokoroidConfig.testExtensionType == null) {
             throw RuntimeException("testExtensionType is null, please set it: \"driver\" | \"adapter\" | \"plugin\"")
         }
+        */
 
         if (RunKokoroidConfig.extensionFilename == null) {
             when (RunKokoroidConfig.testExtensionType) {
